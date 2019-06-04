@@ -1,0 +1,1 @@
+require_relative '../../lib/foreman_phpipam/phpipam_client'
