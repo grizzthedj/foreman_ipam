@@ -38,7 +38,7 @@
     subnet_container.innerHTML = '<h2>Subnets for ' + section_name + '</h2>';
 
     $.ajax({
-      type: "GET", url: "/phpipam/subnets",
+      type: "GET", url: "/ipam/phpipam/subnets",
       data: {"section_id": section_id},
       success: function(data) {
         if (data.message === 'No subnets found') 

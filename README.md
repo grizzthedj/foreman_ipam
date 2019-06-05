@@ -1,8 +1,11 @@
-# foreman_phpipam
+# foreman_ipam
 
-Foreman plugin for IPAM integration with [phpIPAM](https://phpipam.net/). 
+Foreman plugin for IPAM integration with 
 
-Provides a basic UI for viewing phpIPAM sections, subnets and allocated IP addresses. Also allows for  obtaining of the next available IPv4 address for a given subnet(via [phpIPAM Smart Proxy Plugin](https://github.com/grizzthedj/smart_proxy_phpipam)).
+Supported Providers: 
+1. [phpIPAM](https://phpipam.net/). 
+
+Provides a basic UI for viewing phpIPAM sections, subnets and allocated IP addresses. Also allows for  obtaining of the next available IPv4 address for a given subnet(via [IPAM Smart Proxy Plugin](https://github.com/grizzthedj/smart_proxy_ipam)).
 
 ## Installation
 

@@ -1,5 +1,5 @@
-module ForemanPhpipam
-  module DashboardExtensions
+module ForemanIpam
+  module DashboardHelperExtensions
     extend ActiveSupport::Concern
 
     included do
@@ -8,12 +8,6 @@ module ForemanPhpipam
 
     # create or overwrite instance methods...
     def instance_method_name
-    end
-
-    module ClassMethods
-      # create or overwrite class methods...
-      def class_method_name
-      end
     end
   end
 end

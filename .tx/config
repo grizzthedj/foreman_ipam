@@ -1,8 +1,8 @@
 [main]
 host = https://www.transifex.com
 
-[foreman.foreman_phpipam]
-file_filter = locale/<lang>/foreman_phpipam.edit.po
-source_file = locale/foreman_phpipam.pot
+[foreman.foreman_ipam]
+file_filter = locale/<lang>/foreman_ipam.edit.po
+source_file = locale/foreman_ipam.pot
 source_lang = en
 type = PO

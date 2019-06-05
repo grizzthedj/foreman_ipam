@@ -1,2 +1,2 @@
-# Matches foreman_phpipam.gemspec
-_('Plugin for IPAM integration with phpIPAM')
+# Matches foreman_ipam.gemspec
+_('Plugin for IPAM integration with various IPAM providers')

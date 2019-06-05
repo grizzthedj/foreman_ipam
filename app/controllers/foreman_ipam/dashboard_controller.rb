@@ -1,7 +1,7 @@
 
-module ForemanPhpipam
+module ForemanIpam
   class DashboardController < ::DashboardController
-    def phpipam
+    def ipam
       @response = PhpipamClient.proxy.get_sections
     end
 

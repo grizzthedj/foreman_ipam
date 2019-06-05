@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  get 'phpipam', to: 'foreman_phpipam/dashboard#phpipam'
-  get 'phpipam/subnets', to: 'foreman_phpipam/dashboard#subnets'
+  get 'ipam', to: 'foreman_ipam/dashboard#ipam'
+  get 'ipam/phpipam/subnets', to: 'foreman_ipam/dashboard#subnets'
 end

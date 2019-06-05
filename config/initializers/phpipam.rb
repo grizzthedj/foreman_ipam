@@ -1,1 +1,1 @@
-require_relative '../../lib/foreman_phpipam/phpipam_client'
+require_relative '../../lib/foreman_ipam/phpipam_client'
