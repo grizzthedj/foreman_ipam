@@ -1,6 +1,6 @@
 require 'test_plugin_helper'
 
-class ForemanPhpipamTest < ActiveSupport::TestCase
+class ForemanIpamTest < ActiveSupport::TestCase
   setup do
     User.current = User.find_by_login 'admin'
   end
