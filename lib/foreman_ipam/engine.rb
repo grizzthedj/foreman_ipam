@@ -18,6 +18,15 @@ module ForemanIpam
       Foreman::Plugin.register :foreman_ipam do
         requires_foreman '>= 1.16'
 
+        # Add permissions
+        security_block :foreman_ipam do
+          permission :view_foreman_ipam, :'foreman_ipam/dashboard' => [:ipam]
+          permission :view_foreman_ipam_subnets, :'foreman_ipam/dashboard' => [:subnets]
+        end
+
+        # Add a new role called 'ExternalIpam' if it doesn't exist
+        role 'ExternalIpam', [:view_foreman_ipam, :view_foreman_ipam_subnets]
+
         # Add menu entry to Infrastructure
         menu :top_menu, :template,
           url_hash: { 
