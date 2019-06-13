@@ -1,11 +1,11 @@
 # foreman_ipam
 
-Foreman plugin for IPAM integration with 
+Foreman plugin for IPAM integration with various IPAM providers.
 
-Supported Providers: 
+Currently supported Providers: 
 1. [phpIPAM](https://phpipam.net/). 
 
-Provides a basic UI for viewing phpIPAM sections, subnets and allocated IP addresses. Also allows for  obtaining of the next available IPv4 address for a given subnet(via [IPAM Smart Proxy Plugin](https://github.com/grizzthedj/smart_proxy_ipam)).
+Provides a basic Dashboard for viewing phpIPAM sections, subnets. Also supports obtaining of the next available IPv4 address for a given subnet(via [IPAM Smart Proxy Plugin](https://github.com/grizzthedj/smart_proxy_ipam)).
 
 ## Installation
 
@@ -16,7 +16,7 @@ for how to install Foreman plugins.
 
 Once plugin is installed, you can look at the phpIPAM Dashboard(at Infrastructure --> phpIPAM Dashboard), for a simple view of sections, subnets etc. and/or use phpIPAM to get the next available IP address for a subnet:
 
-1. Create a subnet in Foreman of IPAM type "phpIPAM". Click on the `Proxy` tab and associate the subnet with the phpIPAM proxy. _NOTE: This subnet must actually exist in phpIPAM. There is no phpIPAM integration on the subnet creation at this time._
+1. Create a subnet in Foreman of IPAM type "IPAM". Click on the `Proxy` tab and associate the subnet with the IPAM proxy. _NOTE: This subnet must actually exist in phpIPAM. There is no phpIPAM integration on the subnet creation at this time._
 2. Create a host in Foreman. When adding/editing interfaces, select the above subnet, and the next available IP(pulled from phpIPAM) for the selected subnet will be displayed in the IPv4 address field. _NOTE: This is not supported for IPv6._
 
 ## Local development
@@ -63,6 +63,14 @@ bundle exec smart-proxy start
 10. Add a Local Smart Proxy in the Foreman UI(Infrastructure => Smart Proxies)
 11. Ensure that the `phpipam` feature is present on the proxy(http://proxy_url/features)
 12. Create a Subnet, and associate the subnet to the `phpipam` proxy
+
+## Run tests
+
+From the Foreman core, run ...
+
+```
+bundle exec rails test:foreman_ipam
+```
 
 ## TODO
 

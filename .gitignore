@@ -15,3 +15,5 @@ config/settings.yaml
 rename.rb
 
 *.gem
+
+Gemfile.lock
