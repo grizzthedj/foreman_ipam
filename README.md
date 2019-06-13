@@ -5,7 +5,7 @@ Foreman plugin for IPAM integration with various IPAM providers.
 Currently supported Providers: 
 1. [phpIPAM](https://phpipam.net/). 
 
-Provides a basic Dashboard for viewing phpIPAM sections, subnets. Also supports obtaining of the next available IPv4 address for a given subnet(via [IPAM Smart Proxy Plugin](https://github.com/grizzthedj/smart_proxy_ipam)).
+Provides a basic Dashboard for viewing phpIPAM sections and subnets. Also allows for obtaining of the next available IPv4 address for a given subnet(via [IPAM Smart Proxy Plugin](https://github.com/grizzthedj/smart_proxy_ipam)).
 
 ## Installation
 
