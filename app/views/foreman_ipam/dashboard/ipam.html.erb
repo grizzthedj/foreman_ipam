@@ -1,6 +1,6 @@
 <h1>IPAM Integration Dashboard</h1>
 
-<% if @response %>
+<% if @response && @response.length > 0 %>
   <h2>phpIPAM</h2>
   <h3>Sections:</h3>
   <table class="<%= table_css_classes 'table-fixed' %>">
@@ -26,7 +26,7 @@
 <% else %>
   <div class="alert alert-warning ">
     <span class="pficon pficon-warning-triangle-o "></span>
-    <span class="text"><%= _("No sections found in the phpIPAM instance.") %></span>
+    <span class="text"><%= _("No sections found in the External IPAM instance.") %></span>
   </div>
 <% end %>
 
@@ -50,7 +50,7 @@
   }
 
   function displaySubnets(data) {
-    var subnets = data['data'];
+    var subnets = data;
     subnet_container.innerHTML += `
       <div class='col-md-2'><strong>Subnet</strong></div>
       <div class='col-md-6'><strong>Description</strong></strong></div><br />
