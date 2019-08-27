@@ -39,7 +39,7 @@
 
     $.ajax({
       type: "GET", url: "/ipam/phpipam/subnets",
-      data: {"section_id": section_id},
+      data: {"section_name": section_name},
       success: function(data) {
         if (data.message === 'No subnets found') 
           subnet_container.innerHTML += data.message;
