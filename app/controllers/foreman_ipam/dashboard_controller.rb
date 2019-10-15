@@ -6,7 +6,7 @@ module ForemanIpam
     end
 
     def subnets
-      @subnets = Phpipam.proxy.get_subnets(params[:section_id])
+      @subnets = Phpipam.proxy.get_subnets_by_section(params[:section_name])
       render :json => @subnets.to_json, :status => :ok
     end
   end
