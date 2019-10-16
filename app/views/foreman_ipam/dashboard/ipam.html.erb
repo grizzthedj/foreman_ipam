@@ -1,6 +1,6 @@
 <h1>IPAM Integration Dashboard</h1>
 
-<% if @response && @response.length > 0 %>
+<% if @response['data'] && @response['data'].length > 0 %>
   <h2>phpIPAM</h2>
   <h3>Sections:</h3>
   <table class="<%= table_css_classes 'table-fixed' %>">
@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @response.each do |section| %>
+      <% @response['data'].each do |section| %>
         <tr>
           <td class="ellipsis">
             <a onclick="getSubnets('<%= section['id'] %>', '<%= section['name'] %>')"><%= section['name'] %></a>
@@ -26,7 +26,7 @@
 <% else %>
   <div class="alert alert-warning ">
     <span class="pficon pficon-warning-triangle-o "></span>
-    <span class="text"><%= _("No sections found in the External IPAM instance.") %></span>
+    <span class="text"><%= _("No sections found in External IPAM.") %></span>
   </div>
 <% end %>
 
@@ -56,7 +56,7 @@
       <div class='col-md-6'><strong>Description</strong></strong></div><br />
     `;
 
-    subnets.forEach(function(item) {
+    subnets['data'].forEach(function(item) {
       subnet_container.innerHTML += `
         <div class='col-md-2'>` + item['subnet'] + `/` + item['mask'] + `</div>
         <div class='col-md-6'>` + item['description'] + `</div><br />
