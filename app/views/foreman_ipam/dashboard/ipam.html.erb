@@ -14,7 +14,7 @@
       <% @response['data'].each do |section| %>
         <tr>
           <td class="ellipsis">
-            <a onclick="getSubnets('<%= section['id'] %>', '<%= section['name'] %>')"><%= section['name'] %></a>
+            <a href="#" onclick="getSubnets('<%= section['id'] %>', '<%= section['name'] %>')"><%= section['name'] %></a>
           </td>
           <td class="ellipsis">
             <%= section['description'] %>
@@ -39,7 +39,7 @@
 
     $.ajax({
       type: "GET", url: "/ipam/phpipam/subnets",
-      data: {"section_name": section_name},
+      data: {"section_name": encodeURI(section_name)},
       success: function(data) {
         if (data.message === 'No subnets found') 
           subnet_container.innerHTML += data.message;
