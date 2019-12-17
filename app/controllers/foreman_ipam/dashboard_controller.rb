@@ -2,11 +2,19 @@
 module ForemanIpam
   class DashboardController < ::DashboardController
     def ipam
-      @response = Phpipam.proxy.get_sections
+      begin
+        @response = Phpipam.proxy.get_sections
+      rescue
+        @response = nil
+      end 
     end
 
     def subnets
-      @subnets = Phpipam.proxy.get_subnets_by_section(params[:section_name])
+      begin
+        @subnets = Phpipam.proxy.get_subnets_by_section(params[:section_name])
+      rescue
+        @subnets = nil
+      end
       render :json => @subnets.to_json, :status => :ok
     end
   end
