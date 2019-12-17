@@ -1,6 +1,11 @@
 <h1>IPAM Integration Dashboard</h1>
 
-<% if @response['data'] && @response['data'].length > 0 %>
+<% if @response.nil? %>
+  <div class="alert alert-warning ">
+    <span class="pficon pficon-warning-triangle-o "></span>
+    <span class="text"><%= _("Cannot connect to External IPAM.") %></span>
+  </div>
+<% elsif @response['data'] && @response['data'].length > 0 %>
   <h2>phpIPAM</h2>
   <h3>Sections:</h3>
   <table class="<%= table_css_classes 'table-fixed' %>">
@@ -41,20 +46,31 @@
       type: "GET", url: "/ipam/phpipam/subnets",
       data: {"section_name": encodeURI(section_name)},
       success: function(data) {
-        if (data.message === 'No subnets found') 
-          subnet_container.innerHTML += data.message;
-        else 
-          displaySubnets(data);
+        if (!data) {
+          subnet_container.innerHTML += 'Cannot connect to External IPAM';
+        }
+        else {
+          if (data.message === 'No subnets found') 
+            subnet_container.innerHTML += data.message;
+          else 
+            displaySubnets(data);
+        }
       }
     });
   }
 
   function displaySubnets(data) {
     var subnets = data;
-    subnet_container.innerHTML += `
-      <div class='col-md-2'><strong>Subnet</strong></div>
-      <div class='col-md-6'><strong>Description</strong></strong></div><br />
-    `;
+
+    if (subnets['data'].length == 0) {
+      subnet_container.innerHTML += "<div class='col-md-2'><strong>No Subnets</strong></div>"
+    }
+    else {
+      subnet_container.innerHTML += `
+        <div class='col-md-2'><strong>Subnet</strong></div>
+        <div class='col-md-6'><strong>Description</strong></strong></div><br />
+      `;
+    }
 
     subnets['data'].forEach(function(item) {
       subnet_container.innerHTML += `
