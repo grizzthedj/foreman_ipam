@@ -1,2 +1,2 @@
 
-Feature.where(:name => 'external_ipam').first_or_create
+Feature.where(:name => 'externalipam').first_or_create
