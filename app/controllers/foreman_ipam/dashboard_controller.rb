@@ -4,16 +4,16 @@ module ForemanIpam
     def ipam
       begin
         @response = Phpipam.proxy.get_sections
-      rescue
-        @response = nil
+      rescue => e
+        flash.now[:notice] = e.message
       end 
     end
 
     def subnets
       begin
         @subnets = Phpipam.proxy.get_subnets_by_section(params[:section_name])
-      rescue
-        @subnets = nil
+      rescue => e
+        flash.now[:notice] = e.message
       end
       render :json => @subnets.to_json, :status => :ok
     end
