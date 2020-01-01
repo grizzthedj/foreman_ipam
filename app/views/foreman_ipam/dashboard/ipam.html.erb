@@ -1,9 +1,14 @@
 <h1>IPAM Integration Dashboard</h1>
 
-<% if @response.nil? %>
+<% if !flash.empty? %>
   <div class="alert alert-warning ">
     <span class="pficon pficon-warning-triangle-o "></span>
-    <span class="text"><%= _("Cannot connect to External IPAM.") %></span>
+    <span class="text"><%= _(flash.now[:notice]) %></span>
+  </div>
+<% elsif @response['data'] && @response['data'].length == 0 %>
+  <div class="alert alert-warning ">
+    <span class="pficon pficon-warning-triangle-o "></span>
+    <span class="text"><%= _("No sections found in External IPAM.") %></span>
   </div>
 <% elsif @response['data'] && @response['data'].length > 0 %>
   <h2>phpIPAM</h2>
@@ -28,11 +33,6 @@
       <% end %>
     </tbody>
   </table>
-<% else %>
-  <div class="alert alert-warning ">
-    <span class="pficon pficon-warning-triangle-o "></span>
-    <span class="text"><%= _("No sections found in External IPAM.") %></span>
-  </div>
 <% end %>
 
 <div id="subnet_container"></div>
