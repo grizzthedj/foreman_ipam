@@ -44,7 +44,7 @@
 
     $.ajax({
       type: "GET", url: "/ipam/phpipam/subnets",
-      data: {"section_name": encodeURI(section_name)},
+      data: {"group_name": section_name},
       success: function(data) {
         if (!data) {
           subnet_container.innerHTML += 'Cannot connect to External IPAM';

@@ -1,9 +1,10 @@
+require 'uri'
 
 module ForemanIpam
   class DashboardController < ::DashboardController
     def ipam
       begin
-        @response = Phpipam.proxy.get_sections
+        @response = Phpipam.proxy.get_groups
       rescue => e
         flash.now[:notice] = e.message
       end 
@@ -11,7 +12,7 @@ module ForemanIpam
 
     def subnets
       begin
-        @subnets = Phpipam.proxy.get_subnets_by_section(params[:section_name])
+        @subnets = Phpipam.proxy.get_subnets_by_group(URI.escape(params[:group_name]))
       rescue => e
         flash.now[:notice] = e.message
       end
