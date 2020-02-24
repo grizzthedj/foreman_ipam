@@ -25,7 +25,7 @@ module ForemanIpam
         end
 
         # Add a new role called 'ExternalIpam' if it doesn't exist
-        role 'ExternalIpam', [:view_foreman_ipam, :view_foreman_ipam_subnets, 'Role to allow for the viewing of Subnets and Sections from External IPAM']
+        role 'ExternalIpam', [:view_foreman_ipam, :view_foreman_ipam_subnets] # , 'Role to allow for the viewing of Subnets and Sections from External IPAM']
 
         # Add menu entry to Infrastructure
         menu :top_menu, :template,

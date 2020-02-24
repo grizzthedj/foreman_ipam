@@ -12,7 +12,7 @@ module ForemanIpam
 
     def subnets
       begin
-        @subnets = Phpipam.proxy.get_subnets_by_group(URI.escape(params[:group_name]))
+        @subnets = Phpipam.proxy.get_subnets_by_group(URI.escape(params[:group]))
       rescue => e
         flash.now[:notice] = e.message
       end
