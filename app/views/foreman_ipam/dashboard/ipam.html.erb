@@ -24,7 +24,7 @@
       <% @response['data'].each do |section| %>
         <tr>
           <td class="ellipsis">
-            <a href="#" onclick="getSubnets('<%= section['id'] %>', '<%= section['name'] %>')"><%= section['name'] %></a>
+            <a href="#" onclick="getSubnets('<%= section['name'] %>')"><%= section['name'] %></a>
           </td>
           <td class="ellipsis">
             <%= section['description'] %>
@@ -38,13 +38,13 @@
 <div id="subnet_container"></div>
 
 <script>
-  function getSubnets(section_id, section_name) {
+  function getSubnets(section_name) {
     var subnet_container = document.getElementById('subnet_container');
     subnet_container.innerHTML = '<h2>Subnets for ' + section_name + '</h2>';
 
     $.ajax({
       type: "GET", url: "/ipam/phpipam/subnets",
-      data: {"group_name": section_name},
+      data: {"group": section_name},
       success: function(data) {
         if (!data) {
           subnet_container.innerHTML += 'Cannot connect to External IPAM';
@@ -63,7 +63,7 @@
     var subnets = data;
 
     if (subnets['data'].length == 0) {
-      subnet_container.innerHTML += "<div class='col-md-2'><strong>No Subnets</strong></div>"
+      subnet_container.innerHTML += "<div class='col-md-2'><strong>No Subnets found</strong></div>"
     }
     else {
       subnet_container.innerHTML += `
