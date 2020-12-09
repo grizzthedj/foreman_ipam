@@ -16,12 +16,12 @@ module ForemanIpam
 
     initializer 'foreman_ipam.register_plugin', :before => :finisher_hook do |_app|
       Foreman::Plugin.register :foreman_ipam do
-        requires_foreman '>= 1.16'
+        requires_foreman '>= 2.1'
 
         # Add permissions
         security_block :foreman_ipam do
-          permission :view_foreman_ipam, :'foreman_ipam/dashboard' => [:ipam]
-          permission :view_foreman_ipam_subnets, :'foreman_ipam/dashboard' => [:subnets]
+          permission :view_foreman_ipam, :'foreman_ipam/external_ipam' => [:dashboard]
+          permission :view_foreman_ipam_subnets, :'foreman_ipam/external_ipam' => [:subnets]
         end
 
         # Add a new role called 'ExternalIpam' if it doesn't exist
@@ -30,9 +30,9 @@ module ForemanIpam
         # Add menu entry to Infrastructure
         menu :top_menu, :template,
           url_hash: { 
-            controller: :'foreman_ipam/dashboard', action: :ipam 
+            controller: :'foreman_ipam/external_ipam', action: :dashboard 
           },
-          caption: 'IPAM Dashboard',
+          caption: 'External IPAM',
           parent: :infrastructure_menu
       end
     end
