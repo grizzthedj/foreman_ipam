@@ -1,0 +1,106 @@
+<h1>External IPAM Dashboard</h1>
+
+<% if !flash.empty? %>
+  <div class="alert alert-warning ">
+    <span class="pficon pficon-warning-triangle-o "></span>
+    <span class="text"><%= _(flash.now[:notice]) %></span>
+  </div>
+<% else %>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <% @response.keys.each do |proxy| %>
+      <% proxy_name = proxy.downcase.gsub(' ','_') %>
+
+      <li class='<%= @response[proxy][:first] ? "active" : "" %>' onclick="clearSubnets('<%= proxy_name %>')">
+        <a href='#<%= proxy_name %>' data-toggle="tab"><%= _(proxy) %></a>
+      </li>
+    <% end %>
+  </ul>
+  <div class="tab-content">
+    <% @response.keys.each do |proxy| %>
+      <% proxy_name = proxy.downcase.gsub(' ','_') %>
+
+      <% if @response[proxy][:groups].length == 0 %>
+        <div class="alert alert-warning ">
+          <span class="pficon pficon-warning-triangle-o "></span>
+          <span class="text"><%= _("No groups found in External IPAM.") %></span>
+        </div>
+      <% else %>
+        <div class="tab-pane <%= "active" if @response[proxy][:first] %>" id='<%= proxy_name %>' >
+          <h3>Groups:</h3>
+          <table class="<%= table_css_classes 'table-fixed' %>">
+            <thead>
+              <tr>
+                <th class="col-md-2"><%= s_("Name") %></th>
+                <th class="col-md-6"><%= s_("Description") %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @response[proxy][:groups].each do |group| %>
+                <tr>
+                  <td class="ellipsis">
+                    <a href="#" onclick="getSubnets('<%= group['name'] %>', '<%= @response[proxy][:id] %>', '<%= proxy_name %>')">
+                      <%= group['name'] %>
+                    </a>
+                  </td>
+                  <td class="ellipsis">
+                    <%= group['description'] %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
+          <div id="subnet_container_<%= proxy_name %>"></div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+
+<script>
+  function getSubnets(groupName, proxyId, proxyName) {
+    var subnetContainer = document.getElementById('subnet_container_' + proxyName);
+    subnetContainer.innerHTML = '<h2>Subnets for ' + groupName + '</h2>';
+
+    $.ajax({
+      type: "GET", 
+      url: "/ipam/subnets?smart_proxy_id=" + proxyId + "&group=" + groupName,
+      success: function(data) {
+        if (!data) {
+          subnetContainer.innerHTML += 'Something went wrong';
+        }
+        else {
+          if (data.message === 'No subnets found') 
+            subnetContainer.innerHTML += data.message;
+          else 
+            displaySubnets(data, proxyName);
+        }
+      }
+    });
+  }
+
+  function clearSubnets(proxyName) {
+    document.getElementById('subnet_container_' + proxyName).innerHTML = '';
+  }
+
+  function displaySubnets(subnets, proxyName) {
+    var subnetContainer = document.getElementById('subnet_container_' + proxyName);
+
+    if (subnets.length == 0) {
+      subnetContainer.innerHTML += "<div class='col-md-3'><strong>No Subnets found</strong></div>"
+    }
+    else {
+      subnetContainer.innerHTML += `
+        <div class='col-md-3'><strong>Subnet</strong></div>
+        <div class='col-md-6'><strong>Description</strong></strong></div><br />
+      `;
+    }
+
+    subnets.forEach(function(item) {
+      subnetContainer.innerHTML += `
+        <div class='col-md-3'>` + item['subnet'] + `/` + item['mask'] + `</div>
+        <div class='col-md-6'>` + item['description'] + `</div><br />
+      `;
+    });
+  }
+</script>
